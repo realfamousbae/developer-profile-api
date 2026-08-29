@@ -58,8 +58,8 @@ export const developerProfile = {
     {
       company: 'Moscow Polytechnic University',
       position: 'TypeScript Backend Developer',
-      startPeriod: '2025-09',
-      endPeriod: '2026-07',
+      startPeriod: '2024-09',
+      endPeriod: '2025-07',
       isCurrent: false,
       achievements: [
         'Developed and supported backend services with TypeScript, Node.js, and NestJS.',
