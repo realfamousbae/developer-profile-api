@@ -72,6 +72,22 @@ export const developerProfile = {
   ],
   projects: [
     {
+      name: 'Nearsy',
+      description:
+        'A hyperlocal, commission-free marketplace for Novokosino and Reutov, built as a service-oriented pilot with FastAPI services, versioned API and event contracts, PostgreSQL, and S3-compatible media storage.',
+      url: 'https://github.com/realfamousbae/Nearsy',
+      repositoryUrl: 'https://github.com/realfamousbae/Nearsy',
+      technologies: [
+        'TypeScript',
+        'Python',
+        'FastAPI',
+        'PostgreSQL',
+        'Redis',
+        'MinIO (S3 API)',
+        'Docker',
+      ],
+    },
+    {
       name: 'Focus',
       description:
         'A privacy-focused web application for creating countdowns and synchronizing them across devices with calendar import support.',
