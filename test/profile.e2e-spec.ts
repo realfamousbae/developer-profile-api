@@ -3,6 +3,7 @@ import { Test } from '@nestjs/testing';
 import type { Server } from 'node:http';
 import request from 'supertest';
 
+import { developerProfile } from '../prisma/seed-data.ts';
 import { AppModule } from '../src/app.module.ts';
 
 const profileQuery = String.raw`
@@ -10,6 +11,10 @@ const profileQuery = String.raw`
     profile {
       name
       description
+      links {
+        label
+        url
+      }
       skills {
         name
       }
@@ -49,44 +54,27 @@ describe('Developer profile API', () => {
       .send({ query: profileQuery })
       .expect(200);
 
+    const expectedProfile = {
+      name: developerProfile.name,
+      description: developerProfile.description,
+      links: developerProfile.professionalLinks.map(({ label, url }) => ({
+        label,
+        url,
+      })),
+      skills: developerProfile.skills.map(({ name }) => ({ name })),
+      experience: developerProfile.experiences.map(({ company, position }) => ({
+        company,
+        position,
+      })),
+      projects: developerProfile.projects.map(({ name, url }) => ({
+        name,
+        url,
+      })),
+    };
+
     expect(response.body as unknown).toEqual({
       data: {
-        profile: {
-          name: 'Aleksey Ermakov',
-          description:
-            'I build maintainable TypeScript services with clear boundaries, predictable data access, and reproducible development environments.',
-          skills: [
-            { name: 'TypeScript' },
-            { name: 'Node.js' },
-            { name: 'NestJS' },
-            { name: 'GraphQL' },
-            { name: 'Prisma ORM' },
-            { name: 'CockroachDB' },
-            { name: 'PostgreSQL' },
-            { name: 'Docker' },
-            { name: 'Git' },
-          ],
-          experience: [
-            {
-              company: 'Independent and team projects',
-              position: 'TypeScript Developer',
-            },
-          ],
-          projects: [
-            {
-              name: 'Hubble',
-              url: 'https://github.com/realfamousbae/hubble',
-            },
-            {
-              name: 'Ploom',
-              url: 'https://ploom-front.vercel.app',
-            },
-            {
-              name: 'Focus',
-              url: 'https://github.com/realfamousbae/realfamousbae-focus',
-            },
-          ],
-        },
+        profile: expectedProfile,
       },
     });
   });
