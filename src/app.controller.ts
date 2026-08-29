@@ -41,7 +41,7 @@ const landingPage = String.raw`<!doctype html>
     name
     description
     skills { name }
-    experience { company position }
+    experience { company position achievements }
     projects { name url }
   }
 }</pre>
