@@ -1,9 +1,9 @@
 import { NotFoundException } from '@nestjs/common';
 import { jest } from '@jest/globals';
 
-import type { ProfileRecord } from './profile.repository';
-import type { ProfileRepository } from './profile.repository';
-import { ProfileService } from './profile.service';
+import type { ProfileRecord } from './profile.repository.ts';
+import type { ProfileRepository } from './profile.repository.ts';
+import { ProfileService } from './profile.service.ts';
 
 const storedProfile = {
   id: '38bbb0fd-f1da-4647-81db-7f8296df1699',

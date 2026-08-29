@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Prisma, type Profile } from '../generated/prisma/client';
-import { PrismaService } from '../database/prisma.service';
+import { Prisma, type Profile } from '../generated/prisma/client.ts';
+import { PrismaService } from '../database/prisma.service.ts';
 
 const profileRelations = {
   professionalLinks: { orderBy: { sortOrder: 'asc' as const } },

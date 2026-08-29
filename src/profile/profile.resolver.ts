@@ -1,7 +1,7 @@
 import { Query, Resolver } from '@nestjs/graphql';
 
-import { ProfileModel } from './profile.models';
-import { ProfileService } from './profile.service';
+import { ProfileModel } from './profile.models.ts';
+import { ProfileService } from './profile.service.ts';
 
 @Resolver(() => ProfileModel)
 export class ProfileResolver {

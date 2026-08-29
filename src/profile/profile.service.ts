@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import type { ProfileModel } from './profile.models';
-import { ProfileRepository, type ProfileRecord } from './profile.repository';
+import type { ProfileModel } from './profile.models.ts';
+import { ProfileRepository, type ProfileRecord } from './profile.repository.ts';
 
 const DEVELOPER_PROFILE_SLUG = 'aleksey-ermakov';
 

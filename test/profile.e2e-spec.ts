@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import type { Server } from 'node:http';
 import request from 'supertest';
 
-import { AppModule } from '../src/app.module';
+import { AppModule } from '../src/app.module.ts';
 
 const profileQuery = String.raw`
   query DeveloperProfile {

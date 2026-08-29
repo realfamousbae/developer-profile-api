@@ -1,6 +1,9 @@
 module.exports = {
   collectCoverageFrom: ['src/**/*.ts', '!src/generated/**', '!src/main.ts'],
   extensionsToTreatAsEsm: ['.ts'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: '.',
   testEnvironment: 'node',
@@ -9,10 +12,7 @@ module.exports = {
     '^.+\\.ts$': [
       'ts-jest',
       {
-        tsconfig: {
-          ...require('./tsconfig.json').compilerOptions,
-          module: 'ESNext',
-        },
+        tsconfig: './tsconfig.json',
         useESM: true,
       },
     ],

@@ -2,6 +2,12 @@
 
 A read-only GraphQL API that presents Aleksey Ermakov's professional profile, skills, experience, and selected projects. It is built as a small production-style NestJS service: data lives in CockroachDB, Prisma owns the persistence boundary, and Docker prepares the complete application from an empty environment.
 
+## Live API
+
+- Apollo Sandbox: [developer-profile-api.vercel.app/graphql](https://developer-profile-api.vercel.app/graphql)
+- Landing page: [developer-profile-api.vercel.app](https://developer-profile-api.vercel.app)
+- Health check: [developer-profile-api.vercel.app/health](https://developer-profile-api.vercel.app/health)
+
 ## Quick start
 
 Docker is the only prerequisite.
@@ -154,7 +160,7 @@ npm run db:seed        # safe to repeat
 
 ## Deployment
 
-The application keeps the standard NestJS entry point supported by Vercel. A hosted deployment needs one environment variable:
+The production API runs as a Vercel Function in Frankfurt, close to its CockroachDB Cloud region. The application keeps the standard NestJS entry point supported by Vercel and needs one environment variable:
 
 ```text
 DATABASE_URL=<CockroachDB Cloud connection string>

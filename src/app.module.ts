@@ -4,11 +4,11 @@ import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
-import { AppController } from './app.controller';
-import { environmentSchema } from './config/environment';
-import { DatabaseModule } from './database/database.module';
-import { HealthModule } from './health/health.module';
-import { ProfileModule } from './profile/profile.module';
+import { AppController } from './app.controller.ts';
+import { environmentSchema } from './config/environment.ts';
+import { DatabaseModule } from './database/database.module.ts';
+import { HealthModule } from './health/health.module.ts';
+import { ProfileModule } from './profile/profile.module.ts';
 
 @Module({
   imports: [

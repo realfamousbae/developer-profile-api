@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A GraphQL-powered digital business card for Aleksey Ermakov.",
   "private": true,
+  "type": "module",
   "license": "MIT",
   "engines": {
     "node": "22.x"
