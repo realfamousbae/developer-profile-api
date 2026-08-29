@@ -1,0 +1,60 @@
+services:
+  database:
+    image: cockroachdb/cockroach:v26.2.6
+    command: start-single-node --insecure --store=/cockroach/cockroach-data
+    ports:
+      - '127.0.0.1:26257:26257'
+      - '127.0.0.1:8080:8080'
+    volumes:
+      - cockroach-data:/cockroach/cockroach-data
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          "cockroach sql --insecure --host=localhost:26257 --execute='SELECT 1'",
+        ]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
+  migrate:
+    build:
+      context: .
+      target: migration
+    environment:
+      DATABASE_URL: postgresql://root@database:26257/defaultdb?sslmode=disable
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: 'no'
+
+  app:
+    build:
+      context: .
+      target: runtime
+    environment:
+      DATABASE_URL: postgresql://root@database:26257/defaultdb?sslmode=disable
+      NODE_ENV: production
+      PORT: 3000
+    ports:
+      - '127.0.0.1:3000:3000'
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    init: true
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/health').then((response) => { if (!response.ok) process.exit(1) }).catch(() => process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  cockroach-data:
