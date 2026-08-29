@@ -1,0 +1,64 @@
+name: Quality checks
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate source
+        run: |
+          npm run prisma:generate
+          npm run prisma:validate
+          npm run format:check
+          npm run lint
+          npm run typecheck
+          npm test
+
+      - name: Start the complete application
+        run: docker compose up --build --detach --wait --wait-timeout 180
+
+      - name: Verify repeatable database initialization
+        run: |
+          docker compose run --rm migrate npm run db:seed
+          docker compose run --rm migrate npm run db:seed
+
+      - name: Test complete application
+        run: |
+          npm run test:e2e
+          npm run build
+
+      - name: Smoke test the containerized API
+        run: |
+          curl --fail --silent http://localhost:3000/health
+          curl --fail --silent \
+            --header 'content-type: application/json' \
+            --data '{"query":"query { profile { name skills { name } experience { company position } projects { name url } } }"}' \
+            http://localhost:3000/graphql
+
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose logs --no-color
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down --volumes

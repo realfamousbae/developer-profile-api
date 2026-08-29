@@ -1,0 +1,26 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "extensionsToTreatAsEsm": [".ts"],
+  "rootDir": "..",
+  "setupFiles": ["<rootDir>/test/environment.ts"],
+  "testEnvironment": "node",
+  "testRegex": "test/.*\\.e2e-spec\\.ts$",
+  "transform": {
+    "^.+\\.ts$": [
+      "ts-jest",
+      {
+        "tsconfig": {
+          "allowSyntheticDefaultImports": true,
+          "emitDecoratorMetadata": true,
+          "esModuleInterop": true,
+          "experimentalDecorators": true,
+          "module": "ESNext",
+          "moduleResolution": "node",
+          "strict": true,
+          "target": "ES2023"
+        },
+        "useESM": true
+      }
+    ]
+  }
+}

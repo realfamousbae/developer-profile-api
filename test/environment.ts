@@ -1,0 +1,2 @@
+process.env.DATABASE_URL ??=
+  'postgresql://root@localhost:26257/defaultdb?sslmode=disable';
